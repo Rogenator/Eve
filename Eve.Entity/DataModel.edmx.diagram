@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e429c5541e3a493faae998e2fcf16b1b" Name="Diagram1">
+        <EntityTypeShape EntityType="EveModel.AppUser" Width="1.5" PointX="6" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.Category" Width="1.5" PointX="3.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.Company" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.CompanyRelation" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.CompanyUser" Width="1.5" PointX="6" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.Meta" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.MetaOption" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.Notification" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.NotificationUser" Width="1.5" PointX="5.25" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.OrderStatu" Width="1.5" PointX="6" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.Product" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.ProductMeta" Width="1.5" PointX="8.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.RelationshipType" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.SaleOrder" Width="1.5" PointX="8.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.SaleOrderDetail" Width="1.5" PointX="10.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.UserType" Width="1.5" PointX="3.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.ProductImage" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="EveModel.ProductRemark" Width="1.5" PointX="8.25" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="EveModel.FK__CompanyRe__Relat__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__CompanyUs__AppUs__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__Notificat__AppUs__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__SaleOrder__AppUs__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK_AppUser_UserType" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__Category__Parent__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__Product__Categor__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__CompanyRe__Compa__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__CompanyRe__Relat__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__CompanyUs__Compa__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__Notificat__Compa__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__Product__Company__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK_CompanyRelation_RelationshipType" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__MetaOptio__MetaI__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__Notificat__Notif__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__SaleOrder__SaleO__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__ProductIm__Produ__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__ProductMe__Produ__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__ProductRe__Produ__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__SaleOrder__Produ__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="EveModel.FK__SaleOrder__SaleO__4222D4EF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

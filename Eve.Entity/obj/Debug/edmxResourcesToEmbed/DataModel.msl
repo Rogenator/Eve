@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EveModelStoreContainer" CdmEntityContainer="EveEntities">
+    <EntitySetMapping Name="AppUsers">
+      <EntityTypeMapping TypeName="EveModel.AppUser">
+        <MappingFragment StoreEntitySet="AppUser">
+          <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+          <ScalarProperty Name="AppUserName" ColumnName="AppUserName" />
+          <ScalarProperty Name="AppUserEmail" ColumnName="AppUserEmail" />
+          <ScalarProperty Name="AppUserPassword" ColumnName="AppUserPassword" />
+          <ScalarProperty Name="AppUserDateOfBirth" ColumnName="AppUserDateOfBirth" />
+          <ScalarProperty Name="AppUserIsActive" ColumnName="AppUserIsActive" />
+          <ScalarProperty Name="AppUserTypeId" ColumnName="AppUserTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="EveModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
+          <ScalarProperty Name="CategoryNameEs" ColumnName="CategoryNameEs" />
+          <ScalarProperty Name="CategoryNameEn" ColumnName="CategoryNameEn" />
+          <ScalarProperty Name="CategoryIsActive" ColumnName="CategoryIsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="EveModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="CompanyDescription" ColumnName="CompanyDescription" />
+          <ScalarProperty Name="CompanyLogo" ColumnName="CompanyLogo" />
+          <ScalarProperty Name="CompanyIsActive" ColumnName="CompanyIsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompanyRelations">
+      <EntityTypeMapping TypeName="EveModel.CompanyRelation">
+        <MappingFragment StoreEntitySet="CompanyRelation">
+          <ScalarProperty Name="CompanyRelationId" ColumnName="CompanyRelationId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="RelatedAppUserId" ColumnName="RelatedAppUserId" />
+          <ScalarProperty Name="RelatedComanyId" ColumnName="RelatedComanyId" />
+          <ScalarProperty Name="CompanyRelationIsActive" ColumnName="CompanyRelationIsActive" />
+          <ScalarProperty Name="RelationshipTypeId" ColumnName="RelationshipTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompanyUsers">
+      <EntityTypeMapping TypeName="EveModel.CompanyUser">
+        <MappingFragment StoreEntitySet="CompanyUser">
+          <ScalarProperty Name="CompanyUserId" ColumnName="CompanyUserId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+          <ScalarProperty Name="CompanyUserIsActive" ColumnName="CompanyUserIsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Metas">
+      <EntityTypeMapping TypeName="EveModel.Meta">
+        <MappingFragment StoreEntitySet="Meta">
+          <ScalarProperty Name="MetaId" ColumnName="MetaId" />
+          <ScalarProperty Name="MetaNameEs" ColumnName="MetaNameEs" />
+          <ScalarProperty Name="MetaNameEn" ColumnName="MetaNameEn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MetaOptions">
+      <EntityTypeMapping TypeName="EveModel.MetaOption">
+        <MappingFragment StoreEntitySet="MetaOption">
+          <ScalarProperty Name="MetaOptionId" ColumnName="MetaOptionId" />
+          <ScalarProperty Name="MetaId" ColumnName="MetaId" />
+          <ScalarProperty Name="MetaOptionNameEs" ColumnName="MetaOptionNameEs" />
+          <ScalarProperty Name="MetaOptionNameEn" ColumnName="MetaOptionNameEn" />
+          <ScalarProperty Name="MetaOptionValue" ColumnName="MetaOptionValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="EveModel.Notification">
+        <MappingFragment StoreEntitySet="Notification">
+          <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="NotificationMessage" ColumnName="NotificationMessage" />
+          <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NotificationUsers">
+      <EntityTypeMapping TypeName="EveModel.NotificationUser">
+        <MappingFragment StoreEntitySet="NotificationUser">
+          <ScalarProperty Name="NotificationUserId" ColumnName="NotificationUserId" />
+          <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+          <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+          <ScalarProperty Name="NotificationUserSendDate" ColumnName="NotificationUserSendDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderStatus">
+      <EntityTypeMapping TypeName="EveModel.OrderStatu">
+        <MappingFragment StoreEntitySet="OrderStatus">
+          <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
+          <ScalarProperty Name="OrderStatusNameEs" ColumnName="OrderStatusNameEs" />
+          <ScalarProperty Name="OrderStatusNameEn" ColumnName="OrderStatusNameEn" />
+          <ScalarProperty Name="OrderStatusIsActive" ColumnName="OrderStatusIsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="EveModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ProductNameEs" ColumnName="ProductNameEs" />
+          <ScalarProperty Name="ProductNameEn" ColumnName="ProductNameEn" />
+          <ScalarProperty Name="ProductDescriptionEs" ColumnName="ProductDescriptionEs" />
+          <ScalarProperty Name="ProductDescriptionEn" ColumnName="ProductDescriptionEn" />
+          <ScalarProperty Name="ProductIsActive" ColumnName="ProductIsActive" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="ProductRetailPrice" ColumnName="ProductRetailPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductMetas">
+      <EntityTypeMapping TypeName="EveModel.ProductMeta">
+        <MappingFragment StoreEntitySet="ProductMeta">
+          <ScalarProperty Name="ProductMetaId" ColumnName="ProductMetaId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductMetaTags" ColumnName="ProductMetaTags" />
+          <ScalarProperty Name="ProductMetaPrice" ColumnName="ProductMetaPrice" />
+          <ScalarProperty Name="ProductMetaRetailPrice" ColumnName="ProductMetaRetailPrice" />
+          <ScalarProperty Name="ProductMetaInventory" ColumnName="ProductMetaInventory" />
+          <ScalarProperty Name="ProductMetaInventoryHold" ColumnName="ProductMetaInventoryHold" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelationshipTypes">
+      <EntityTypeMapping TypeName="EveModel.RelationshipType">
+        <MappingFragment StoreEntitySet="RelationshipType">
+          <ScalarProperty Name="RelationshipTypeId" ColumnName="RelationshipTypeId" />
+          <ScalarProperty Name="RelationshipTypeNameEs" ColumnName="RelationshipTypeNameEs" />
+          <ScalarProperty Name="RelationshipTypeNameEn" ColumnName="RelationshipTypeNameEn" />
+          <ScalarProperty Name="RelationshipTypeIsActive" ColumnName="RelationshipTypeIsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SaleOrders">
+      <EntityTypeMapping TypeName="EveModel.SaleOrder">
+        <MappingFragment StoreEntitySet="SaleOrder">
+          <ScalarProperty Name="SaleOrderId" ColumnName="SaleOrderId" />
+          <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+          <ScalarProperty Name="SaleOrderStatusId" ColumnName="SaleOrderStatusId" />
+          <ScalarProperty Name="SaleOrderComments" ColumnName="SaleOrderComments" />
+          <ScalarProperty Name="SaleOrderCreationDate" ColumnName="SaleOrderCreationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SaleOrderDetails">
+      <EntityTypeMapping TypeName="EveModel.SaleOrderDetail">
+        <MappingFragment StoreEntitySet="SaleOrderDetail">
+          <ScalarProperty Name="SaleOrderDetailId" ColumnName="SaleOrderDetailId" />
+          <ScalarProperty Name="SaleOrderId" ColumnName="SaleOrderId" />
+          <ScalarProperty Name="ProductMetaId" ColumnName="ProductMetaId" />
+          <ScalarProperty Name="SaleOrderDetailPrice" ColumnName="SaleOrderDetailPrice" />
+          <ScalarProperty Name="SaleOrderDetailAmmount" ColumnName="SaleOrderDetailAmmount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTypes">
+      <EntityTypeMapping TypeName="EveModel.UserType">
+        <MappingFragment StoreEntitySet="UserType">
+          <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+          <ScalarProperty Name="UserTypeNameEs" ColumnName="UserTypeNameEs" />
+          <ScalarProperty Name="UserTypeNameEn" ColumnName="UserTypeNameEn" />
+          <ScalarProperty Name="UserTypeIsActive" ColumnName="UserTypeIsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductImages">
+      <EntityTypeMapping TypeName="EveModel.ProductImage">
+        <MappingFragment StoreEntitySet="ProductImage">
+          <ScalarProperty Name="ProductImageId" ColumnName="ProductImageId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductImageUrl" ColumnName="ProductImageUrl" />
+          <ScalarProperty Name="ProductImageThumbnail" ColumnName="ProductImageThumbnail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductRemarks">
+      <EntityTypeMapping TypeName="EveModel.ProductRemark">
+        <MappingFragment StoreEntitySet="ProductRemark">
+          <ScalarProperty Name="ProductRemarkId" ColumnName="ProductRemarkId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductRemarkDescription" ColumnName="ProductRemarkDescription" />
+          <ScalarProperty Name="ProductRemarkStart" ColumnName="ProductRemarkStart" />
+          <ScalarProperty Name="ProductRemarkEnd" ColumnName="ProductRemarkEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

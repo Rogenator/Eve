@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="AppUserId" />
+    </Key>
+    <Property Name="AppUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppUserName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AppUserEmail" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AppUserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AppUserDateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="AppUserIsActive" Type="Boolean" Nullable="false" />
+    <Property Name="AppUserTypeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CompanyRelations" Relationship="Self.FK__CompanyRe__Relat__267ABA7A" FromRole="AppUser" ToRole="CompanyRelation" />
+    <NavigationProperty Name="CompanyUsers" Relationship="Self.FK__CompanyUs__AppUs__22AA2996" FromRole="AppUser" ToRole="CompanyUser" />
+    <NavigationProperty Name="NotificationUsers" Relationship="Self.FK__Notificat__AppUs__2E1BDC42" FromRole="AppUser" ToRole="NotificationUser" />
+    <NavigationProperty Name="SaleOrders" Relationship="Self.FK__SaleOrder__AppUs__3B75D760" FromRole="AppUser" ToRole="SaleOrder" />
+    <NavigationProperty Name="UserType" Relationship="Self.FK_AppUser_UserType" FromRole="AppUser" ToRole="UserType" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentCategoryId" Type="Int32" />
+    <Property Name="CategoryNameEs" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CategoryNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CategoryIsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Category1" Relationship="Self.FK__Category__Parent__300424B4" FromRole="Category" ToRole="Category1" />
+    <NavigationProperty Name="Category2" Relationship="Self.FK__Category__Parent__300424B4" FromRole="Category1" ToRole="Category" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Product__Categor__3A81B327" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CompanyDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyLogo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyIsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CompanyRelations" Relationship="Self.FK__CompanyRe__Compa__25869641" FromRole="Company" ToRole="CompanyRelation" />
+    <NavigationProperty Name="CompanyRelations1" Relationship="Self.FK__CompanyRe__Relat__276EDEB3" FromRole="Company" ToRole="CompanyRelation" />
+    <NavigationProperty Name="CompanyUsers" Relationship="Self.FK__CompanyUs__Compa__35BCFE0A" FromRole="Company" ToRole="CompanyUser" />
+    <NavigationProperty Name="Notifications" Relationship="Self.FK__Notificat__Compa__37A5467C" FromRole="Company" ToRole="Notification" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Product__Company__3B75D760" FromRole="Company" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="CompanyRelation">
+    <Key>
+      <PropertyRef Name="CompanyRelationId" />
+    </Key>
+    <Property Name="CompanyRelationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyId" Type="Int32" Nullable="false" />
+    <Property Name="RelatedAppUserId" Type="Int32" />
+    <Property Name="RelatedComanyId" Type="Int32" />
+    <Property Name="CompanyRelationIsActive" Type="Boolean" Nullable="false" />
+    <Property Name="RelationshipTypeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AppUser" Relationship="Self.FK__CompanyRe__Relat__267ABA7A" FromRole="CompanyRelation" ToRole="AppUser" />
+    <NavigationProperty Name="Company" Relationship="Self.FK__CompanyRe__Compa__25869641" FromRole="CompanyRelation" ToRole="Company" />
+    <NavigationProperty Name="Company1" Relationship="Self.FK__CompanyRe__Relat__276EDEB3" FromRole="CompanyRelation" ToRole="Company" />
+    <NavigationProperty Name="RelationshipType" Relationship="Self.FK_CompanyRelation_RelationshipType" FromRole="CompanyRelation" ToRole="RelationshipType" />
+  </EntityType>
+  <EntityType Name="CompanyUser">
+    <Key>
+      <PropertyRef Name="CompanyUserId" />
+    </Key>
+    <Property Name="CompanyUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyId" Type="Int32" Nullable="false" />
+    <Property Name="AppUserId" Type="Int32" Nullable="false" />
+    <Property Name="CompanyUserIsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AppUser" Relationship="Self.FK__CompanyUs__AppUs__22AA2996" FromRole="CompanyUser" ToRole="AppUser" />
+    <NavigationProperty Name="Company" Relationship="Self.FK__CompanyUs__Compa__35BCFE0A" FromRole="CompanyUser" ToRole="Company" />
+  </EntityType>
+  <EntityType Name="Meta">
+    <Key>
+      <PropertyRef Name="MetaId" />
+    </Key>
+    <Property Name="MetaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MetaNameEs" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MetaNameEn" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="MetaOptions" Relationship="Self.FK__MetaOptio__MetaI__36B12243" FromRole="Meta" ToRole="MetaOption" />
+  </EntityType>
+  <EntityType Name="MetaOption">
+    <Key>
+      <PropertyRef Name="MetaOptionId" />
+    </Key>
+    <Property Name="MetaOptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MetaId" Type="Int32" Nullable="false" />
+    <Property Name="MetaOptionNameEs" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MetaOptionNameEn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MetaOptionValue" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Meta" Relationship="Self.FK__MetaOptio__MetaI__36B12243" FromRole="MetaOption" ToRole="Meta" />
+  </EntityType>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="NotificationId" />
+    </Key>
+    <Property Name="NotificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyId" Type="Int32" Nullable="false" />
+    <Property Name="NotificationMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NotificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Company" Relationship="Self.FK__Notificat__Compa__37A5467C" FromRole="Notification" ToRole="Company" />
+    <NavigationProperty Name="NotificationUsers" Relationship="Self.FK__Notificat__Notif__398D8EEE" FromRole="Notification" ToRole="NotificationUser" />
+  </EntityType>
+  <EntityType Name="NotificationUser">
+    <Key>
+      <PropertyRef Name="NotificationUserId" />
+    </Key>
+    <Property Name="NotificationUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NotificationId" Type="Int32" Nullable="false" />
+    <Property Name="AppUserId" Type="Int32" Nullable="false" />
+    <Property Name="NotificationUserSendDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AppUser" Relationship="Self.FK__Notificat__AppUs__2E1BDC42" FromRole="NotificationUser" ToRole="AppUser" />
+    <NavigationProperty Name="Notification" Relationship="Self.FK__Notificat__Notif__398D8EEE" FromRole="NotificationUser" ToRole="Notification" />
+  </EntityType>
+  <EntityType Name="OrderStatu">
+    <Key>
+      <PropertyRef Name="OrderStatusId" />
+    </Key>
+    <Property Name="OrderStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderStatusNameEs" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderStatusNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderStatusIsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="SaleOrders" Relationship="Self.FK__SaleOrder__SaleO__403A8C7D" FromRole="OrderStatus" ToRole="SaleOrder" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyId" Type="Int32" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="ProductNameEs" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductNameEn" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductDescriptionEs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProductDescriptionEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProductIsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ProductPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="ProductRetailPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Product__Categor__3A81B327" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="Company" Relationship="Self.FK__Product__Company__3B75D760" FromRole="Product" ToRole="Company" />
+    <NavigationProperty Name="ProductImages" Relationship="Self.FK__ProductIm__Produ__3C69FB99" FromRole="Product" ToRole="ProductImage" />
+    <NavigationProperty Name="ProductMetas" Relationship="Self.FK__ProductMe__Produ__3D5E1FD2" FromRole="Product" ToRole="ProductMeta" />
+    <NavigationProperty Name="ProductRemarks" Relationship="Self.FK__ProductRe__Produ__3E52440B" FromRole="Product" ToRole="ProductRemark" />
+  </EntityType>
+  <EntityType Name="ProductMeta">
+    <Key>
+      <PropertyRef Name="ProductMetaId" />
+    </Key>
+    <Property Name="ProductMetaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="ProductMetaTags" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductMetaPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ProductMetaRetailPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ProductMetaInventory" Type="Int32" Nullable="false" />
+    <Property Name="ProductMetaInventoryHold" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__ProductMe__Produ__3D5E1FD2" FromRole="ProductMeta" ToRole="Product" />
+    <NavigationProperty Name="SaleOrderDetails" Relationship="Self.FK__SaleOrder__Produ__412EB0B6" FromRole="ProductMeta" ToRole="SaleOrderDetail" />
+  </EntityType>
+  <EntityType Name="RelationshipType">
+    <Key>
+      <PropertyRef Name="RelationshipTypeId" />
+    </Key>
+    <Property Name="RelationshipTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RelationshipTypeNameEs" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RelationshipTypeNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RelationshipTypeIsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CompanyRelations" Relationship="Self.FK_CompanyRelation_RelationshipType" FromRole="RelationshipType" ToRole="CompanyRelation" />
+  </EntityType>
+  <EntityType Name="SaleOrder">
+    <Key>
+      <PropertyRef Name="SaleOrderId" />
+    </Key>
+    <Property Name="SaleOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppUserId" Type="Int32" Nullable="false" />
+    <Property Name="SaleOrderStatusId" Type="Int32" Nullable="false" />
+    <Property Name="SaleOrderComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SaleOrderCreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AppUser" Relationship="Self.FK__SaleOrder__AppUs__3B75D760" FromRole="SaleOrder" ToRole="AppUser" />
+    <NavigationProperty Name="OrderStatu" Relationship="Self.FK__SaleOrder__SaleO__403A8C7D" FromRole="SaleOrder" ToRole="OrderStatus" />
+    <NavigationProperty Name="SaleOrderDetails" Relationship="Self.FK__SaleOrder__SaleO__4222D4EF" FromRole="SaleOrder" ToRole="SaleOrderDetail" />
+  </EntityType>
+  <EntityType Name="SaleOrderDetail">
+    <Key>
+      <PropertyRef Name="SaleOrderDetailId" />
+    </Key>
+    <Property Name="SaleOrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SaleOrderId" Type="Int32" Nullable="false" />
+    <Property Name="ProductMetaId" Type="Int32" Nullable="false" />
+    <Property Name="SaleOrderDetailPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="SaleOrderDetailAmmount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ProductMeta" Relationship="Self.FK__SaleOrder__Produ__412EB0B6" FromRole="SaleOrderDetail" ToRole="ProductMeta" />
+    <NavigationProperty Name="SaleOrder" Relationship="Self.FK__SaleOrder__SaleO__4222D4EF" FromRole="SaleOrderDetail" ToRole="SaleOrder" />
+  </EntityType>
+  <EntityType Name="UserType">
+    <Key>
+      <PropertyRef Name="UserTypeId" />
+    </Key>
+    <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserTypeNameEs" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserTypeNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserTypeIsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUser_UserType" FromRole="UserType" ToRole="AppUser" />
+  </EntityType>
+  <EntityType Name="ProductImage">
+    <Key>
+      <PropertyRef Name="ProductImageId" />
+      <PropertyRef Name="ProductImageUrl" />
+      <PropertyRef Name="ProductImageThumbnail" />
+    </Key>
+    <Property Name="ProductImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="ProductImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductImageThumbnail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__ProductIm__Produ__3C69FB99" FromRole="ProductImage" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ProductRemark">
+    <Key>
+      <PropertyRef Name="ProductRemarkId" />
+      <PropertyRef Name="ProductId" />
+      <PropertyRef Name="ProductRemarkDescription" />
+    </Key>
+    <Property Name="ProductRemarkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="ProductRemarkDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductRemarkStart" Type="DateTime" Precision="3" />
+    <Property Name="ProductRemarkEnd" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__ProductRe__Produ__3E52440B" FromRole="ProductRemark" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK__CompanyRe__Relat__267ABA7A">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+    <End Role="CompanyRelation" Type="Self.CompanyRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="AppUserId" />
+      </Principal>
+      <Dependent Role="CompanyRelation">
+        <PropertyRef Name="RelatedAppUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompanyUs__AppUs__22AA2996">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="AppUserId" />
+      </Principal>
+      <Dependent Role="CompanyUser">
+        <PropertyRef Name="AppUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__AppUs__2E1BDC42">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="NotificationUser" Type="Self.NotificationUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="AppUserId" />
+      </Principal>
+      <Dependent Role="NotificationUser">
+        <PropertyRef Name="AppUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaleOrder__AppUs__3B75D760">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="SaleOrder" Type="Self.SaleOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="AppUserId" />
+      </Principal>
+      <Dependent Role="SaleOrder">
+        <PropertyRef Name="AppUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppUser_UserType">
+    <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserType">
+        <PropertyRef Name="UserTypeId" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="AppUserTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Category__Parent__300424B4">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="ParentCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__Categor__3A81B327">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompanyRe__Compa__25869641">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="CompanyRelation" Type="Self.CompanyRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="CompanyRelation">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompanyRe__Relat__276EDEB3">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="CompanyRelation" Type="Self.CompanyRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="CompanyRelation">
+        <PropertyRef Name="RelatedComanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompanyUs__Compa__35BCFE0A">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="CompanyUser">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__Compa__37A5467C">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__Company__3B75D760">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CompanyRelation_RelationshipType">
+    <End Role="RelationshipType" Type="Self.RelationshipType" Multiplicity="1" />
+    <End Role="CompanyRelation" Type="Self.CompanyRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RelationshipType">
+        <PropertyRef Name="RelationshipTypeId" />
+      </Principal>
+      <Dependent Role="CompanyRelation">
+        <PropertyRef Name="RelationshipTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MetaOptio__MetaI__36B12243">
+    <End Role="Meta" Type="Self.Meta" Multiplicity="1" />
+    <End Role="MetaOption" Type="Self.MetaOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meta">
+        <PropertyRef Name="MetaId" />
+      </Principal>
+      <Dependent Role="MetaOption">
+        <PropertyRef Name="MetaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__Notif__398D8EEE">
+    <End Role="Notification" Type="Self.Notification" Multiplicity="1" />
+    <End Role="NotificationUser" Type="Self.NotificationUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Notification">
+        <PropertyRef Name="NotificationId" />
+      </Principal>
+      <Dependent Role="NotificationUser">
+        <PropertyRef Name="NotificationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaleOrder__SaleO__403A8C7D">
+    <End Role="OrderStatus" Type="Self.OrderStatu" Multiplicity="1" />
+    <End Role="SaleOrder" Type="Self.SaleOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="OrderStatusId" />
+      </Principal>
+      <Dependent Role="SaleOrder">
+        <PropertyRef Name="SaleOrderStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductIm__Produ__3C69FB99">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductImage" Type="Self.ProductImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductImage">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductMe__Produ__3D5E1FD2">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductMeta" Type="Self.ProductMeta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductMeta">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductRe__Produ__3E52440B">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductRemark" Type="Self.ProductRemark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductRemark">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaleOrder__Produ__412EB0B6">
+    <End Role="ProductMeta" Type="Self.ProductMeta" Multiplicity="1" />
+    <End Role="SaleOrderDetail" Type="Self.SaleOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductMeta">
+        <PropertyRef Name="ProductMetaId" />
+      </Principal>
+      <Dependent Role="SaleOrderDetail">
+        <PropertyRef Name="ProductMetaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaleOrder__SaleO__4222D4EF">
+    <End Role="SaleOrder" Type="Self.SaleOrder" Multiplicity="1" />
+    <End Role="SaleOrderDetail" Type="Self.SaleOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SaleOrder">
+        <PropertyRef Name="SaleOrderId" />
+      </Principal>
+      <Dependent Role="SaleOrderDetail">
+        <PropertyRef Name="SaleOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EveEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Companies" EntityType="Self.Company" />
+    <EntitySet Name="CompanyRelations" EntityType="Self.CompanyRelation" />
+    <EntitySet Name="CompanyUsers" EntityType="Self.CompanyUser" />
+    <EntitySet Name="Metas" EntityType="Self.Meta" />
+    <EntitySet Name="MetaOptions" EntityType="Self.MetaOption" />
+    <EntitySet Name="Notifications" EntityType="Self.Notification" />
+    <EntitySet Name="NotificationUsers" EntityType="Self.NotificationUser" />
+    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="ProductMetas" EntityType="Self.ProductMeta" />
+    <EntitySet Name="RelationshipTypes" EntityType="Self.RelationshipType" />
+    <EntitySet Name="SaleOrders" EntityType="Self.SaleOrder" />
+    <EntitySet Name="SaleOrderDetails" EntityType="Self.SaleOrderDetail" />
+    <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+    <EntitySet Name="ProductImages" EntityType="Self.ProductImage" />
+    <EntitySet Name="ProductRemarks" EntityType="Self.ProductRemark" />
+    <AssociationSet Name="FK__CompanyRe__Relat__267ABA7A" Association="Self.FK__CompanyRe__Relat__267ABA7A">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="CompanyRelation" EntitySet="CompanyRelations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompanyUs__AppUs__22AA2996" Association="Self.FK__CompanyUs__AppUs__22AA2996">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="CompanyUser" EntitySet="CompanyUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__AppUs__2E1BDC42" Association="Self.FK__Notificat__AppUs__2E1BDC42">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="NotificationUser" EntitySet="NotificationUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaleOrder__AppUs__3B75D760" Association="Self.FK__SaleOrder__AppUs__3B75D760">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="SaleOrder" EntitySet="SaleOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppUser_UserType" Association="Self.FK_AppUser_UserType">
+      <End Role="UserType" EntitySet="UserTypes" />
+      <End Role="AppUser" EntitySet="AppUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Category__Parent__300424B4" Association="Self.FK__Category__Parent__300424B4">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Category1" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__Categor__3A81B327" Association="Self.FK__Product__Categor__3A81B327">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompanyRe__Compa__25869641" Association="Self.FK__CompanyRe__Compa__25869641">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="CompanyRelation" EntitySet="CompanyRelations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompanyRe__Relat__276EDEB3" Association="Self.FK__CompanyRe__Relat__276EDEB3">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="CompanyRelation" EntitySet="CompanyRelations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompanyUs__Compa__35BCFE0A" Association="Self.FK__CompanyUs__Compa__35BCFE0A">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="CompanyUser" EntitySet="CompanyUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__Compa__37A5467C" Association="Self.FK__Notificat__Compa__37A5467C">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__Company__3B75D760" Association="Self.FK__Product__Company__3B75D760">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CompanyRelation_RelationshipType" Association="Self.FK_CompanyRelation_RelationshipType">
+      <End Role="RelationshipType" EntitySet="RelationshipTypes" />
+      <End Role="CompanyRelation" EntitySet="CompanyRelations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MetaOptio__MetaI__36B12243" Association="Self.FK__MetaOptio__MetaI__36B12243">
+      <End Role="Meta" EntitySet="Metas" />
+      <End Role="MetaOption" EntitySet="MetaOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__Notif__398D8EEE" Association="Self.FK__Notificat__Notif__398D8EEE">
+      <End Role="Notification" EntitySet="Notifications" />
+      <End Role="NotificationUser" EntitySet="NotificationUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaleOrder__SaleO__403A8C7D" Association="Self.FK__SaleOrder__SaleO__403A8C7D">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="SaleOrder" EntitySet="SaleOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductIm__Produ__3C69FB99" Association="Self.FK__ProductIm__Produ__3C69FB99">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductImage" EntitySet="ProductImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductMe__Produ__3D5E1FD2" Association="Self.FK__ProductMe__Produ__3D5E1FD2">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductMeta" EntitySet="ProductMetas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductRe__Produ__3E52440B" Association="Self.FK__ProductRe__Produ__3E52440B">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductRemark" EntitySet="ProductRemarks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaleOrder__Produ__412EB0B6" Association="Self.FK__SaleOrder__Produ__412EB0B6">
+      <End Role="ProductMeta" EntitySet="ProductMetas" />
+      <End Role="SaleOrderDetail" EntitySet="SaleOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaleOrder__SaleO__4222D4EF" Association="Self.FK__SaleOrder__SaleO__4222D4EF">
+      <End Role="SaleOrder" EntitySet="SaleOrders" />
+      <End Role="SaleOrderDetail" EntitySet="SaleOrderDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

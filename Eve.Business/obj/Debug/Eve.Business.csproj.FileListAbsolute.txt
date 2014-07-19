@@ -1,0 +1,9 @@
+C:\Programming\GuiñoGuiño\Eve\Eve.Business\bin\Debug\Eve.Business.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Business\bin\Debug\Eve.Business.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Business\obj\Debug\Eve.Business.csprojResolveAssemblyReference.cache
+C:\Programming\GuiñoGuiño\Eve\Eve.Business\obj\Debug\Eve.Business.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Business\obj\Debug\Eve.Business.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Business\bin\Debug\Eve.Entity.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Business\bin\Debug\EntityFramework.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Business\bin\Debug\Eve.Entity.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Business\bin\Debug\EntityFramework.xml

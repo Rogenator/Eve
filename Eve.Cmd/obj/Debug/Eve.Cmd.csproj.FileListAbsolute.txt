@@ -1,0 +1,12 @@
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\bin\Debug\Eve.Cmd.exe.config
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\bin\Debug\Eve.Cmd.exe
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\bin\Debug\Eve.Cmd.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\obj\Debug\Eve.Cmd.exe
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\obj\Debug\Eve.Cmd.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\bin\Debug\Eve.Business.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\bin\Debug\Eve.Entity.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\bin\Debug\EntityFramework.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\bin\Debug\Eve.Business.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\bin\Debug\Eve.Entity.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\bin\Debug\EntityFramework.xml
+C:\Programming\GuiñoGuiño\Eve\Eve.Cmd\obj\Debug\Eve.Cmd.csprojResolveAssemblyReference.cache

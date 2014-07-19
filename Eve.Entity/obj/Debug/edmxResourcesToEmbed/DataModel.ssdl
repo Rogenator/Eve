@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="AppUserId" />
+    </Key>
+    <Property Name="AppUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppUserName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="AppUserEmail" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="AppUserPassword" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="AppUserDateOfBirth" Type="datetime" />
+    <Property Name="AppUserIsActive" Type="bit" Nullable="false" />
+    <Property Name="AppUserTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentCategoryId" Type="int" />
+    <Property Name="CategoryNameEs" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CategoryNameEn" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CategoryIsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CompanyDescription" Type="varchar(max)" />
+    <Property Name="CompanyLogo" Type="varchar" MaxLength="1000" />
+    <Property Name="CompanyIsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CompanyRelation">
+    <Key>
+      <PropertyRef Name="CompanyRelationId" />
+    </Key>
+    <Property Name="CompanyRelationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="RelatedAppUserId" Type="int" />
+    <Property Name="RelatedComanyId" Type="int" />
+    <Property Name="CompanyRelationIsActive" Type="bit" Nullable="false" />
+    <Property Name="RelationshipTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CompanyUser">
+    <Key>
+      <PropertyRef Name="CompanyUserId" />
+    </Key>
+    <Property Name="CompanyUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="AppUserId" Type="int" Nullable="false" />
+    <Property Name="CompanyUserIsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Meta">
+    <Key>
+      <PropertyRef Name="MetaId" />
+    </Key>
+    <Property Name="MetaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MetaNameEs" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="MetaNameEn" Type="varchar" MaxLength="80" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MetaOption">
+    <Key>
+      <PropertyRef Name="MetaOptionId" />
+    </Key>
+    <Property Name="MetaOptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MetaId" Type="int" Nullable="false" />
+    <Property Name="MetaOptionNameEs" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MetaOptionNameEn" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MetaOptionValue" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="NotificationId" />
+    </Key>
+    <Property Name="NotificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="NotificationMessage" Type="varchar(max)" Nullable="false" />
+    <Property Name="NotificationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NotificationUser">
+    <Key>
+      <PropertyRef Name="NotificationUserId" />
+    </Key>
+    <Property Name="NotificationUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotificationId" Type="int" Nullable="false" />
+    <Property Name="AppUserId" Type="int" Nullable="false" />
+    <Property Name="NotificationUserSendDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OrderStatus">
+    <Key>
+      <PropertyRef Name="OrderStatusId" />
+    </Key>
+    <Property Name="OrderStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderStatusNameEs" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="OrderStatusNameEn" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="OrderStatusIsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="ProductNameEs" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="ProductNameEn" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="ProductDescriptionEs" Type="varchar(max)" />
+    <Property Name="ProductDescriptionEn" Type="varchar(max)" />
+    <Property Name="ProductIsActive" Type="bit" Nullable="false" />
+    <Property Name="ProductPrice" Type="money" Nullable="false" />
+    <Property Name="ProductRetailPrice" Type="money" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'EVE.dbo.ProductImage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ProductImage">
+    <Key>
+      <PropertyRef Name="ProductImageId" />
+      <PropertyRef Name="ProductImageUrl" />
+      <PropertyRef Name="ProductImageThumbnail" />
+    </Key>
+    <Property Name="ProductImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="ProductImageUrl" Type="varchar(max)" Nullable="false" />
+    <Property Name="ProductImageThumbnail" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductMeta">
+    <Key>
+      <PropertyRef Name="ProductMetaId" />
+    </Key>
+    <Property Name="ProductMetaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="ProductMetaTags" Type="varchar(max)" Nullable="false" />
+    <Property Name="ProductMetaPrice" Type="money" />
+    <Property Name="ProductMetaRetailPrice" Type="money" />
+    <Property Name="ProductMetaInventory" Type="int" Nullable="false" />
+    <Property Name="ProductMetaInventoryHold" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'EVE.dbo.ProductRemark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ProductRemark">
+    <Key>
+      <PropertyRef Name="ProductRemarkId" />
+      <PropertyRef Name="ProductId" />
+      <PropertyRef Name="ProductRemarkDescription" />
+    </Key>
+    <Property Name="ProductRemarkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="ProductRemarkDescription" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="ProductRemarkStart" Type="datetime" />
+    <Property Name="ProductRemarkEnd" Type="datetime" />
+  </EntityType>
+  <EntityType Name="RelationshipType">
+    <Key>
+      <PropertyRef Name="RelationshipTypeId" />
+    </Key>
+    <Property Name="RelationshipTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RelationshipTypeNameEs" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="RelationshipTypeNameEn" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="RelationshipTypeIsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SaleOrder">
+    <Key>
+      <PropertyRef Name="SaleOrderId" />
+    </Key>
+    <Property Name="SaleOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppUserId" Type="int" Nullable="false" />
+    <Property Name="SaleOrderStatusId" Type="int" Nullable="false" />
+    <Property Name="SaleOrderComments" Type="varchar(max)" />
+    <Property Name="SaleOrderCreationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SaleOrderDetail">
+    <Key>
+      <PropertyRef Name="SaleOrderDetailId" />
+    </Key>
+    <Property Name="SaleOrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SaleOrderId" Type="int" Nullable="false" />
+    <Property Name="ProductMetaId" Type="int" Nullable="false" />
+    <Property Name="SaleOrderDetailPrice" Type="money" Nullable="false" />
+    <Property Name="SaleOrderDetailAmmount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserType">
+    <Key>
+      <PropertyRef Name="UserTypeId" />
+    </Key>
+    <Property Name="UserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserTypeNameEs" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserTypeNameEn" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserTypeIsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Category__Parent__300424B4">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="ParentCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompanyRe__Compa__25869641">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="CompanyRelation" Type="Self.CompanyRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="CompanyRelation">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompanyRe__Relat__267ABA7A">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+    <End Role="CompanyRelation" Type="Self.CompanyRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="AppUserId" />
+      </Principal>
+      <Dependent Role="CompanyRelation">
+        <PropertyRef Name="RelatedAppUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompanyRe__Relat__276EDEB3">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="CompanyRelation" Type="Self.CompanyRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="CompanyRelation">
+        <PropertyRef Name="RelatedComanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompanyUs__AppUs__22AA2996">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="AppUserId" />
+      </Principal>
+      <Dependent Role="CompanyUser">
+        <PropertyRef Name="AppUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompanyUs__Compa__35BCFE0A">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="CompanyUser">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MetaOptio__MetaI__36B12243">
+    <End Role="Meta" Type="Self.Meta" Multiplicity="1" />
+    <End Role="MetaOption" Type="Self.MetaOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meta">
+        <PropertyRef Name="MetaId" />
+      </Principal>
+      <Dependent Role="MetaOption">
+        <PropertyRef Name="MetaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__AppUs__2E1BDC42">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="NotificationUser" Type="Self.NotificationUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="AppUserId" />
+      </Principal>
+      <Dependent Role="NotificationUser">
+        <PropertyRef Name="AppUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__Compa__37A5467C">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__Notif__398D8EEE">
+    <End Role="Notification" Type="Self.Notification" Multiplicity="1" />
+    <End Role="NotificationUser" Type="Self.NotificationUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Notification">
+        <PropertyRef Name="NotificationId" />
+      </Principal>
+      <Dependent Role="NotificationUser">
+        <PropertyRef Name="NotificationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__Categor__3A81B327">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__Company__3B75D760">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductIm__Produ__3C69FB99">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductImage" Type="Self.ProductImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductImage">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductMe__Produ__3D5E1FD2">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductMeta" Type="Self.ProductMeta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductMeta">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductRe__Produ__3E52440B">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductRemark" Type="Self.ProductRemark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductRemark">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaleOrder__AppUs__3B75D760">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="SaleOrder" Type="Self.SaleOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="AppUserId" />
+      </Principal>
+      <Dependent Role="SaleOrder">
+        <PropertyRef Name="AppUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaleOrder__Produ__412EB0B6">
+    <End Role="ProductMeta" Type="Self.ProductMeta" Multiplicity="1" />
+    <End Role="SaleOrderDetail" Type="Self.SaleOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductMeta">
+        <PropertyRef Name="ProductMetaId" />
+      </Principal>
+      <Dependent Role="SaleOrderDetail">
+        <PropertyRef Name="ProductMetaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaleOrder__SaleO__403A8C7D">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+    <End Role="SaleOrder" Type="Self.SaleOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="OrderStatusId" />
+      </Principal>
+      <Dependent Role="SaleOrder">
+        <PropertyRef Name="SaleOrderStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaleOrder__SaleO__4222D4EF">
+    <End Role="SaleOrder" Type="Self.SaleOrder" Multiplicity="1" />
+    <End Role="SaleOrderDetail" Type="Self.SaleOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SaleOrder">
+        <PropertyRef Name="SaleOrderId" />
+      </Principal>
+      <Dependent Role="SaleOrderDetail">
+        <PropertyRef Name="SaleOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppUser_UserType">
+    <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserType">
+        <PropertyRef Name="UserTypeId" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="AppUserTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CompanyRelation_RelationshipType">
+    <End Role="RelationshipType" Type="Self.RelationshipType" Multiplicity="1" />
+    <End Role="CompanyRelation" Type="Self.CompanyRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RelationshipType">
+        <PropertyRef Name="RelationshipTypeId" />
+      </Principal>
+      <Dependent Role="CompanyRelation">
+        <PropertyRef Name="RelationshipTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EveModelStoreContainer">
+    <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CompanyRelation" EntityType="Self.CompanyRelation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CompanyUser" EntityType="Self.CompanyUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Meta" EntityType="Self.Meta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MetaOption" EntityType="Self.MetaOption" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NotificationUser" EntityType="Self.NotificationUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductMeta" EntityType="Self.ProductMeta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RelationshipType" EntityType="Self.RelationshipType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaleOrder" EntityType="Self.SaleOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaleOrderDetail" EntityType="Self.SaleOrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductImage" EntityType="Self.ProductImage" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[ProductImage].[ProductImageId] AS [ProductImageId], 
+[ProductImage].[ProductId] AS [ProductId], 
+[ProductImage].[ProductImageUrl] AS [ProductImageUrl], 
+[ProductImage].[ProductImageThumbnail] AS [ProductImageThumbnail]
+FROM [dbo].[ProductImage] AS [ProductImage]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ProductRemark" EntityType="Self.ProductRemark" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[ProductRemark].[ProductRemarkId] AS [ProductRemarkId], 
+[ProductRemark].[ProductId] AS [ProductId], 
+[ProductRemark].[ProductRemarkDescription] AS [ProductRemarkDescription], 
+[ProductRemark].[ProductRemarkStart] AS [ProductRemarkStart], 
+[ProductRemark].[ProductRemarkEnd] AS [ProductRemarkEnd]
+FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Category__Parent__300424B4" Association="Self.FK__Category__Parent__300424B4">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompanyRe__Compa__25869641" Association="Self.FK__CompanyRe__Compa__25869641">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="CompanyRelation" EntitySet="CompanyRelation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompanyRe__Relat__267ABA7A" Association="Self.FK__CompanyRe__Relat__267ABA7A">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="CompanyRelation" EntitySet="CompanyRelation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompanyRe__Relat__276EDEB3" Association="Self.FK__CompanyRe__Relat__276EDEB3">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="CompanyRelation" EntitySet="CompanyRelation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompanyUs__AppUs__22AA2996" Association="Self.FK__CompanyUs__AppUs__22AA2996">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="CompanyUser" EntitySet="CompanyUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompanyUs__Compa__35BCFE0A" Association="Self.FK__CompanyUs__Compa__35BCFE0A">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="CompanyUser" EntitySet="CompanyUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MetaOptio__MetaI__36B12243" Association="Self.FK__MetaOptio__MetaI__36B12243">
+      <End Role="Meta" EntitySet="Meta" />
+      <End Role="MetaOption" EntitySet="MetaOption" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__AppUs__2E1BDC42" Association="Self.FK__Notificat__AppUs__2E1BDC42">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="NotificationUser" EntitySet="NotificationUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__Compa__37A5467C" Association="Self.FK__Notificat__Compa__37A5467C">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Notification" EntitySet="Notification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__Notif__398D8EEE" Association="Self.FK__Notificat__Notif__398D8EEE">
+      <End Role="Notification" EntitySet="Notification" />
+      <End Role="NotificationUser" EntitySet="NotificationUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__Categor__3A81B327" Association="Self.FK__Product__Categor__3A81B327">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__Company__3B75D760" Association="Self.FK__Product__Company__3B75D760">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductIm__Produ__3C69FB99" Association="Self.FK__ProductIm__Produ__3C69FB99">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductImage" EntitySet="ProductImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductMe__Produ__3D5E1FD2" Association="Self.FK__ProductMe__Produ__3D5E1FD2">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductMeta" EntitySet="ProductMeta" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductRe__Produ__3E52440B" Association="Self.FK__ProductRe__Produ__3E52440B">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductRemark" EntitySet="ProductRemark" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaleOrder__AppUs__3B75D760" Association="Self.FK__SaleOrder__AppUs__3B75D760">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="SaleOrder" EntitySet="SaleOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaleOrder__Produ__412EB0B6" Association="Self.FK__SaleOrder__Produ__412EB0B6">
+      <End Role="ProductMeta" EntitySet="ProductMeta" />
+      <End Role="SaleOrderDetail" EntitySet="SaleOrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaleOrder__SaleO__403A8C7D" Association="Self.FK__SaleOrder__SaleO__403A8C7D">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="SaleOrder" EntitySet="SaleOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaleOrder__SaleO__4222D4EF" Association="Self.FK__SaleOrder__SaleO__4222D4EF">
+      <End Role="SaleOrder" EntitySet="SaleOrder" />
+      <End Role="SaleOrderDetail" EntitySet="SaleOrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppUser_UserType" Association="Self.FK_AppUser_UserType">
+      <End Role="UserType" EntitySet="UserType" />
+      <End Role="AppUser" EntitySet="AppUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CompanyRelation_RelationshipType" Association="Self.FK_CompanyRelation_RelationshipType">
+      <End Role="RelationshipType" EntitySet="RelationshipType" />
+      <End Role="CompanyRelation" EntitySet="CompanyRelation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
