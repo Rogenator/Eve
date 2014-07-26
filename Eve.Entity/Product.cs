@@ -16,8 +16,8 @@ namespace Eve.Entity
     {
         public Product()
         {
-            this.ProductImages = new HashSet<ProductImage>();
             this.ProductMetas = new HashSet<ProductMeta>();
+            this.ProductImages = new HashSet<ProductImage>();
             this.ProductRemarks = new HashSet<ProductRemark>();
         }
     
@@ -34,8 +34,8 @@ namespace Eve.Entity
     
         public virtual Category Category { get; set; }
         public virtual Company Company { get; set; }
-        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductMeta> ProductMetas { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductRemark> ProductRemarks { get; set; }
     }
 }

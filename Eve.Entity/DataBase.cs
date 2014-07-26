@@ -15,7 +15,7 @@ namespace Eve.Entity
                 scsb.DataSource = ConfigurationManager.AppSettings["DB_Server"];
                 scsb.UserID = ConfigurationManager.AppSettings["DB_User"];
                 scsb.Password = ConfigurationManager.AppSettings["DB_Password"];
-                scsb.InitialCatalog = "SellPoint";
+                scsb.InitialCatalog = ConfigurationManager.AppSettings["DB_Name"];
                 scsb.MultipleActiveResultSets = true;
                 scsb.ApplicationName = "EntityFramework";
                 return scsb.ConnectionString;

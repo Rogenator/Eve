@@ -112,13 +112,9 @@
     <Property Name="ProductPrice" Type="money" Nullable="false" />
     <Property Name="ProductRetailPrice" Type="money" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'EVE.dbo.ProductImage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ProductImage">
     <Key>
       <PropertyRef Name="ProductImageId" />
-      <PropertyRef Name="ProductImageUrl" />
-      <PropertyRef Name="ProductImageThumbnail" />
     </Key>
     <Property Name="ProductImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductId" Type="int" />
@@ -137,13 +133,9 @@ warning 6002: The table/view 'EVE.dbo.ProductImage' does not have a primary key 
     <Property Name="ProductMetaInventory" Type="int" Nullable="false" />
     <Property Name="ProductMetaInventoryHold" Type="int" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'EVE.dbo.ProductRemark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ProductRemark">
     <Key>
       <PropertyRef Name="ProductRemarkId" />
-      <PropertyRef Name="ProductId" />
-      <PropertyRef Name="ProductRemarkDescription" />
     </Key>
     <Property Name="ProductRemarkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductId" Type="int" Nullable="false" />
@@ -441,6 +433,9 @@ warning 6002: The table/view 'EVE.dbo.ProductRemark' does not have a primary key
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="usp_sel_ProductMetaInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pid" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="EveModelStoreContainer">
     <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -453,28 +448,13 @@ warning 6002: The table/view 'EVE.dbo.ProductRemark' does not have a primary key
     <EntitySet Name="NotificationUser" EntityType="Self.NotificationUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductImage" EntityType="Self.ProductImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductMeta" EntityType="Self.ProductMeta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductRemark" EntityType="Self.ProductRemark" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RelationshipType" EntityType="Self.RelationshipType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SaleOrder" EntityType="Self.SaleOrder" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SaleOrderDetail" EntityType="Self.SaleOrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ProductImage" EntityType="Self.ProductImage" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-[ProductImage].[ProductImageId] AS [ProductImageId], 
-[ProductImage].[ProductId] AS [ProductId], 
-[ProductImage].[ProductImageUrl] AS [ProductImageUrl], 
-[ProductImage].[ProductImageThumbnail] AS [ProductImageThumbnail]
-FROM [dbo].[ProductImage] AS [ProductImage]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ProductRemark" EntityType="Self.ProductRemark" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-[ProductRemark].[ProductRemarkId] AS [ProductRemarkId], 
-[ProductRemark].[ProductId] AS [ProductId], 
-[ProductRemark].[ProductRemarkDescription] AS [ProductRemarkDescription], 
-[ProductRemark].[ProductRemarkStart] AS [ProductRemarkStart], 
-[ProductRemark].[ProductRemarkEnd] AS [ProductRemarkEnd]
-FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK__Category__Parent__300424B4" Association="Self.FK__Category__Parent__300424B4">
       <End Role="Category" EntitySet="Category" />
       <End Role="Category1" EntitySet="Category" />

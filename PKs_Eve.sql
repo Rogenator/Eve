@@ -1,0 +1,8 @@
+use EVE;
+GO
+
+ALTER TABLE dbo.ProductImage ADD CONSTRAINT PK_ProductImage PRIMARY KEY NONCLUSTERED (ProductImageId);
+GO
+
+ALTER TABLE dbo.ProductRemark ADD CONSTRAINT PK_ProductRemark PRIMARY KEY NONCLUSTERED (ProductRemarkId);
+GO

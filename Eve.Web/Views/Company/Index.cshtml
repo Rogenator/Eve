@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section include{
+    <link href="../Scripts/PlugIns/uploadfile.css" rel="stylesheet" />
+    <script type="text/javascript" src="../Scripts/PlugIns/jquery.uploadfile.min.js"></script>
+    <script type="text/javascript" src="../Scripts/Pages/Company.js"></script>
+}
+<div class="container" data-bind="visible: notOnEdit">
+    <div class="form-inline panel">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">Filter</div>
+                <input type="text" data-bind="value: filterLike" class="form-control" />
+            </div>
+        </div>
+        <button class="btn btn-primary" data-bind="click: newCompany">New Company</button>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('CompanyId'); }">#</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('CompanyName'); }">Name</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('CompanyDescription'); }">Description</th>
+                <th>Logo</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('CompanyIsActive'); }">Active</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="template: { foreach: Companies}">
+            <tr>
+                <td data-bind="text: CompanyId"></td>
+                <td data-bind="text: CompanyName"></td>
+                <td data-bind="text: CompanyDescription"></td>
+                <td>
+                    <a data-bind="attr: { href: CompanyLogoFull}">Logo</a>
+                </td>
+                <td>
+                    <input type="checkbox" disabled="disabled" data-bind="checked: CompanyIsActive" />
+                </td>
+                <td>
+                    <button class="btn btn-success" data-bind="click: beginEdit" title="Edit">
+                        <img src="../Content/Images/edit_w.png" />
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="content">
+                        <div class="col-md-6 form-inline" data-bind='html: footerNavigation'>
+                        </div>
+                        <div class="col-md-6 form-inline">
+                            <label class="pull-right">
+                                Rows Per Page
+                                <select class="form-control" data-bind="options: gridOptions.PageSizes, value: gridOptions.RowsPerPage"></select>
+                            </label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="panel">
+    <div data-bind="with: SelectedCompany" class="form form-inline">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td rowspan="5" style="vertical-align: middle !IMPORTANT; text-align: center !IMPORTANT;">
+                        <img data-bind="attr:{ src: CompanyLogoFull }" style="max-width: 200px; max-height: 200px; border: 1px solid #888;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th valign="top">Name</th>
+                    <td>
+                        <input class="form-control" style="width: 100%" type="text" data-bind="value: CompanyName" />
+                    </td>
+                </tr>
+                <tr>
+                    <th valign="top">Description</th>
+                    <td>
+                        <textarea class="form-control" data-bind="value: CompanyDescription" cols="40"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td>
+                        <label>
+                            <input type="checkbox" data-bind="checked: CompanyIsActive"> Active
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td>
+                        <div id="pnlFileUpload">Upload Logo</div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" align="right">
+                        <button data-bind="click: saveEdit" class="btn btn-primary" >Save</button>
+                        <button data-bind="click: cancelEdit" class="btn btn-info" >Cancel</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

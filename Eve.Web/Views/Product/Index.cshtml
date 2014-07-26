@@ -1,0 +1,270 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section include{
+    <link href="../Scripts/PlugIns/uploadfile.css" rel="stylesheet" />
+    <script type="text/javascript" src="../Scripts/PlugIns/jquery.uploadfile.min.js"></script>
+    <script type="text/javascript" src="../Scripts/Pages/Product.js"></script>
+}
+
+<div class="container" data-bind="visible: onSelection" id="pnlGrid">
+    <div class="form-inline panel">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">Filter</div>
+                <input type="text" data-bind="value: filter.Like" class="form-control" />
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-bind="checked: filter.UsePrice" />Price
+                </span>
+                <input type="text" class="form-control" data-bind="visible: filter.UsePrice, value: filter.Price">
+                <div class="input-group-btn" data-bind="visible: filter.UsePrice">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span data-bind="text: filter.ComparissonText"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="#" onclick="model.setComparisson(0)">&lt;</a></li>
+                        <li><a href="#" onclick="model.setComparisson(1)">&lt;=</a></li>
+                        <li><a href="#" onclick="model.setComparisson(2)">==</a></li>
+                        <li><a href="#" onclick="model.setComparisson(3)">!=</a></li>
+                        <li><a href="#" onclick="model.setComparisson(4)">&gt;=</a></li>
+                        <li><a href="#" onclick="model.setComparisson(5)">&gt;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">Category</div>
+                <select data-bind="options: Categories, optionsText: 'CategoryNameEn', optionsValue: 'CategoryId', value: filter.CategoryId " class="form-control"></select>
+            </div>
+        </div>
+        <button class="btn btn-primary" data-bind="click: newProduct">New Product</button>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('ProductId', 0); }">#</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('CategoryId', 1); }">Category</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('ProductNameEs', 2); }">Name Es</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('ProductNameEn', 3); }">Name En</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('ProductDescriptionEs', 4); }">Description Es</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('ProductDescriptionEn', 5); }">Description En</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('ProductPrice', 6); }">Price</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('ProductRetailPrice', 7); }">Retail Price</th>
+                <th style="cursor: pointer" data-bind="click: function(){ model.setSortMode('ProductIsActive', 8); }">Active</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody data-bind="template: { foreach: Products }">
+            <tr>
+                <td data-bind="text: ProductId"></td>
+                <td data-bind="text: CategoryName"></td>
+                <td data-bind="text: ProductNameEs"></td>
+                <td data-bind="text: ProductNameEn"></td>
+                <td data-bind="text: ProductDescriptionEs"></td>
+                <td data-bind="text: ProductDescriptionEn"></td>
+                <td data-bind="text: ProductPrice"></td>
+                <td data-bind="text: ProductRetailPrice"></td>
+                <td>
+                    <input type="checkbox" disabled="disabled" data-bind="checked: ProductIsActive" />
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-bind="click: setSelected" title="Edit">
+                        <img src="../Content/Images/edit_w.png" />
+                    </button>
+                    <button class="btn btn-warning" data-bind="click: invokeInventory" title="Inventory">
+                        <img src="../Content/Images/inventory_w.png" />
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    <div class="container">
+                        <div class="col-md-6 form-inline" data-bind="html: footerNavigation">
+                        </div>
+                        <div class="col-md-6 form-inline">
+                            <label class="pull-right">
+                                Rows Per Page
+                                <select class="form-control" data-bind="options: gridOptions.PageSizes, value: gridOptions.RowsPerPage"></select>
+                            </label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="panel panel-default" data-bind='visible: SelectedProduct' style='margin: 12px;'>
+    <div class="panel-heading">
+        <h3 class="panel-title">Product Management</h3>
+    </div>
+    <div class="panel-body">
+        <div id='pnlEdit' class="carousel slide" data-ride='carousel'>
+            <ol class="carousel-indicators">
+                <li data-target="#pnlEdit" data-slide-to="0" class="active"></li>
+                <li data-target="#pnlEdit" data-slide-to="1"></li>
+                <li data-target="#pnlEdit" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" style="padding: 24px;">
+                <div class="item active">
+                    <h2>Product Information</h2>
+                    <div class="form-horizontal" data-bind="with: SelectedProduct">
+                        <div class="form-group">
+                            <label class="col-md-2" for="txbNameEn">Name En</label>
+                            <div class="col-md-4">
+                                <input type="text" id="txbNameEn" class="form-control" data-bind="value: ProductNameEn" />
+                            </div>
+                            <label class="col-md-2" for="txbNameEs">Name Es</label>
+                            <div class="col-md-4">
+                                <input type="text" id="txbNameEs" class="form-control" data-bind="value: ProductNameEs" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="txbDescriptionEn">Description En</label>
+                            <div class="col-md-4">
+                                <input type="text" id="txbDescriptionEn" class="form-control" data-bind="value: ProductDescriptionEn" />
+                            </div>
+                            <label class="col-md-2" for="txbDescriptionEs">Description Es</label>
+                            <div class="col-md-4">
+                                <input type="text" id="txbDescriptionEs" class="form-control" data-bind="value: ProductDescriptionEs" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="txbPrice">Price</label>
+                            <div class="col-md-4">
+                                <input type="text" id="txbPrice" class="form-control" data-bind="value: ProductPrice" />
+                            </div>
+                            <label class="col-md-2" for="txbRetail">Retail Price</label>
+                            <div class="col-md-4">
+                                <input type="text" id="txbRetail" class="form-control" data-bind="value: ProductRetailPrice" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chbActive" data-bind="checked: ProductIsActive" />Active
+                                    </label>
+                                </div>
+                            </div>
+                            <label class="col-md-2" for="cmbCategory">Category</label>
+                            <div class="col-md-4">
+                                <select type="text" id="cmbCategory" class="form-control" data-bind="options: $root.Categories2, optionsText: 'CategoryNameEn', optionsValue: 'CategoryId', value: CategoryId "></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button href="#pnlEdit" data-slide="next" class="btn btn-primary pull-right">&gt;&gt;</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <h2>Product Images</h2>
+                    <div class="container">
+                        <div class="col-sm-12" data-bind="with: SelectedProduct">
+                            <ul data-bind="template: { foreach: ProductImages }" class="list-inline">
+                                <li style="position: relative;">
+                                    <img data-bind="attr: { src: ThumbUrl }" />
+                                    <button type="button" class="close delete-image-list" data-bind="click: deleteImage">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="pnlFileUpload">Upload Image</div>
+                    </div>
+                    <div>
+                        <button href="#pnlEdit" data-slide="next" class="btn btn-primary pull-right">&gt;&gt;</button>
+                        <button href="#pnlEdit" data-slide="prev" class="btn btn-primary pull-right">&lt;&lt;</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <h2>Product Versions</h2>
+                    <div class="container">
+                        <div class="col-sm-3">
+                            <ul data-bind='template: { foreach: Metas }' >
+                                <li>
+                                    <label>
+                                        <input type="checkbox" data-bind='checked: IsSelected' />
+                                        <span data-bind="text: MetaNameEn"></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-9">
+                            <div data-bind="template: { foreach: SelectedMetas }">
+                                <fieldset>
+                                    <legend data-bind="text: MetaNameEn"></legend>
+                                    <ul data-bind="template: { foreach: Options}" class="list-inline">
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" data-bind="checked: IsSelected" />
+                                                <span data-bind="text: MetaOptionNameEn"></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button href="#pnlEdit" data-slide="prev" class="btn btn-primary pull-right">&lt;&lt;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer pull-right" data-bind='with: SelectedProduct'>
+        <button class='btn btn-primary' data-bind='click: saveEdit'>Accept</button>
+        <button class='btn btn-info' data-bind='click: cancelEdit'>Cancel</button>
+    </div>
+</div>
+
+<div class="panel panel-default" id="pnlInventory" style="display: none;">
+    <table class='table table-striped'>
+        <thead>
+            <tr>
+                <th>Version</th>
+                <th>Price</th>
+                <th>Retail Price</th>
+                <th>Version Price</th>
+                <th>Version Retail Price</th>
+                <th>Inventory</th>
+                <th>On Hold</th>
+            </tr>
+        </thead>
+        <tbody data-bind='template: { foreach: CurrentInventory }'>
+            <tr>
+                <td data-bind='text: Version'></td>
+                <td data-bind='text: ProductPrice'></td>
+                <td data-bind='text: ProductRetailPrice'></td>
+                <td>
+                    <input class='form-control' type="number" data-bind="value: ProductMetaPrice" />
+                </td>
+                <td>
+                    <input class='form-control' type="number" data-bind="value: ProductMetaRetailPrice" />
+                </td>
+                <td>
+                    <input class='form-control' type="number" data-bind="value: ProductMetaInventory" />
+                </td>
+                <td data-bind="text: ProductMetaInventoryHold"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7" align='right'>
+                    <button class='btn btn-primary' data-bind='click: saveInventory'>Accept</button>
+                    <button class='btn btn-info' data-bind='click: endInventory'>Cancel</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

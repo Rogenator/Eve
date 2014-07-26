@@ -139,9 +139,9 @@
     <Property Name="ProductRetailPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <NavigationProperty Name="Category" Relationship="Self.FK__Product__Categor__3A81B327" FromRole="Product" ToRole="Category" />
     <NavigationProperty Name="Company" Relationship="Self.FK__Product__Company__3B75D760" FromRole="Product" ToRole="Company" />
-    <NavigationProperty Name="ProductImages" Relationship="Self.FK__ProductIm__Produ__3C69FB99" FromRole="Product" ToRole="ProductImage" />
     <NavigationProperty Name="ProductMetas" Relationship="Self.FK__ProductMe__Produ__3D5E1FD2" FromRole="Product" ToRole="ProductMeta" />
-    <NavigationProperty Name="ProductRemarks" Relationship="Self.FK__ProductRe__Produ__3E52440B" FromRole="Product" ToRole="ProductRemark" />
+    <NavigationProperty Name="ProductImages" Relationship="EveModel.FK__ProductIm__Produ__3C69FB99" FromRole="Product" ToRole="ProductImage" />
+    <NavigationProperty Name="ProductRemarks" Relationship="EveModel.FK__ProductRe__Produ__3E52440B" FromRole="Product" ToRole="ProductRemark" />
   </EntityType>
   <EntityType Name="ProductMeta">
     <Key>
@@ -201,31 +201,6 @@
     <Property Name="UserTypeNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="UserTypeIsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUser_UserType" FromRole="UserType" ToRole="AppUser" />
-  </EntityType>
-  <EntityType Name="ProductImage">
-    <Key>
-      <PropertyRef Name="ProductImageId" />
-      <PropertyRef Name="ProductImageUrl" />
-      <PropertyRef Name="ProductImageThumbnail" />
-    </Key>
-    <Property Name="ProductImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProductId" Type="Int32" />
-    <Property Name="ProductImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ProductImageThumbnail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Product" Relationship="Self.FK__ProductIm__Produ__3C69FB99" FromRole="ProductImage" ToRole="Product" />
-  </EntityType>
-  <EntityType Name="ProductRemark">
-    <Key>
-      <PropertyRef Name="ProductRemarkId" />
-      <PropertyRef Name="ProductId" />
-      <PropertyRef Name="ProductRemarkDescription" />
-    </Key>
-    <Property Name="ProductRemarkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProductId" Type="Int32" Nullable="false" />
-    <Property Name="ProductRemarkDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ProductRemarkStart" Type="DateTime" Precision="3" />
-    <Property Name="ProductRemarkEnd" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Product" Relationship="Self.FK__ProductRe__Produ__3E52440B" FromRole="ProductRemark" ToRole="Product" />
   </EntityType>
   <Association Name="FK__CompanyRe__Relat__267ABA7A">
     <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
@@ -419,18 +394,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ProductIm__Produ__3C69FB99">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="ProductImage" Type="Self.ProductImage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="ProductId" />
-      </Principal>
-      <Dependent Role="ProductImage">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__ProductMe__Produ__3D5E1FD2">
     <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
     <End Role="ProductMeta" Type="Self.ProductMeta" Multiplicity="*" />
@@ -439,18 +402,6 @@
         <PropertyRef Name="ProductId" />
       </Principal>
       <Dependent Role="ProductMeta">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__ProductRe__Produ__3E52440B">
-    <End Role="Product" Type="Self.Product" Multiplicity="1" />
-    <End Role="ProductRemark" Type="Self.ProductRemark" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="ProductId" />
-      </Principal>
-      <Dependent Role="ProductRemark">
         <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
@@ -496,8 +447,6 @@
     <EntitySet Name="SaleOrders" EntityType="Self.SaleOrder" />
     <EntitySet Name="SaleOrderDetails" EntityType="Self.SaleOrderDetail" />
     <EntitySet Name="UserTypes" EntityType="Self.UserType" />
-    <EntitySet Name="ProductImages" EntityType="Self.ProductImage" />
-    <EntitySet Name="ProductRemarks" EntityType="Self.ProductRemark" />
     <AssociationSet Name="FK__CompanyRe__Relat__267ABA7A" Association="Self.FK__CompanyRe__Relat__267ABA7A">
       <End Role="AppUser" EntitySet="AppUsers" />
       <End Role="CompanyRelation" EntitySet="CompanyRelations" />
@@ -562,17 +511,9 @@
       <End Role="OrderStatus" EntitySet="OrderStatus" />
       <End Role="SaleOrder" EntitySet="SaleOrders" />
     </AssociationSet>
-    <AssociationSet Name="FK__ProductIm__Produ__3C69FB99" Association="Self.FK__ProductIm__Produ__3C69FB99">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="ProductImage" EntitySet="ProductImages" />
-    </AssociationSet>
     <AssociationSet Name="FK__ProductMe__Produ__3D5E1FD2" Association="Self.FK__ProductMe__Produ__3D5E1FD2">
       <End Role="Product" EntitySet="Products" />
       <End Role="ProductMeta" EntitySet="ProductMetas" />
-    </AssociationSet>
-    <AssociationSet Name="FK__ProductRe__Produ__3E52440B" Association="Self.FK__ProductRe__Produ__3E52440B">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="ProductRemark" EntitySet="ProductRemarks" />
     </AssociationSet>
     <AssociationSet Name="FK__SaleOrder__Produ__412EB0B6" Association="Self.FK__SaleOrder__Produ__412EB0B6">
       <End Role="ProductMeta" EntitySet="ProductMetas" />
@@ -582,5 +523,78 @@
       <End Role="SaleOrder" EntitySet="SaleOrders" />
       <End Role="SaleOrderDetail" EntitySet="SaleOrderDetails" />
     </AssociationSet>
+    <EntitySet Name="ProductImages" EntityType="EveModel.ProductImage" />
+    <EntitySet Name="ProductRemarks" EntityType="EveModel.ProductRemark" />
+    <AssociationSet Name="FK__ProductIm__Produ__3C69FB99" Association="EveModel.FK__ProductIm__Produ__3C69FB99">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductImage" EntitySet="ProductImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductRe__Produ__3E52440B" Association="EveModel.FK__ProductRe__Produ__3E52440B">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductRemark" EntitySet="ProductRemarks" />
+    </AssociationSet>
+    <FunctionImport Name="usp_sel_ProductMetaInfo" ReturnType="Collection(EveModel.usp_sel_ProductMetaInfo_Result)">
+      <Parameter Name="pid" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
+  <EntityType Name="ProductImage">
+    <Key>
+      <PropertyRef Name="ProductImageId" />
+    </Key>
+    <Property Name="ProductImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="ProductImageUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProductImageThumbnail" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Product" Relationship="EveModel.FK__ProductIm__Produ__3C69FB99" FromRole="ProductImage" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ProductRemark">
+    <Key>
+      <PropertyRef Name="ProductRemarkId" />
+    </Key>
+    <Property Name="ProductRemarkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="ProductRemarkDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="ProductRemarkStart" Type="DateTime" Precision="3" />
+    <Property Name="ProductRemarkEnd" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="EveModel.FK__ProductRe__Produ__3E52440B" FromRole="ProductRemark" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK__ProductIm__Produ__3C69FB99">
+    <End Type="EveModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="EveModel.ProductImage" Role="ProductImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductImage">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductRe__Produ__3E52440B">
+    <End Type="EveModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="EveModel.ProductRemark" Role="ProductRemark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductRemark">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="usp_sel_ProductMetaInfo_Result">
+    <Property Type="Int32" Name="ProductId" Nullable="true" />
+    <Property Type="Int32" Name="ProductMetaId" Nullable="true" />
+    <Property Type="String" Name="ProductNameEn" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="ProductNameEs" Nullable="true" MaxLength="300" />
+    <Property Type="Decimal" Name="ProductPrice" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="ProductRetailPrice" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="ProductMetaPrice" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="ProductMetaRetailPrice" Nullable="true" Precision="19" />
+    <Property Type="String" Name="ProductMetaTags" Nullable="true" />
+    <Property Type="String" Name="ProductMetaTagsEn" Nullable="true" />
+    <Property Type="String" Name="ProductMetaTagsEs" Nullable="true" />
+    <Property Type="Int32" Name="ProductMetaInventory" Nullable="true" />
+    <Property Type="Int32" Name="ProductMetaInventoryHold" Nullable="true" />
+  </ComplexType>
 </Schema>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppUser">
           <Key>
             <PropertyRef Name="AppUserId" />
@@ -117,13 +117,9 @@
           <Property Name="ProductPrice" Type="money" Nullable="false" />
           <Property Name="ProductRetailPrice" Type="money" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'EVE.dbo.ProductImage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductImage">
           <Key>
             <PropertyRef Name="ProductImageId" />
-            <PropertyRef Name="ProductImageUrl" />
-            <PropertyRef Name="ProductImageThumbnail" />
           </Key>
           <Property Name="ProductImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductId" Type="int" />
@@ -142,13 +138,9 @@ warning 6002: The table/view 'EVE.dbo.ProductImage' does not have a primary key 
           <Property Name="ProductMetaInventory" Type="int" Nullable="false" />
           <Property Name="ProductMetaInventoryHold" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'EVE.dbo.ProductRemark' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductRemark">
           <Key>
             <PropertyRef Name="ProductRemarkId" />
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="ProductRemarkDescription" />
           </Key>
           <Property Name="ProductRemarkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
@@ -446,6 +438,9 @@ warning 6002: The table/view 'EVE.dbo.ProductRemark' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_sel_ProductMetaInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pid" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="EveModelStoreContainer">
           <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -458,28 +453,13 @@ warning 6002: The table/view 'EVE.dbo.ProductRemark' does not have a primary key
           <EntitySet Name="NotificationUser" EntityType="Self.NotificationUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductImage" EntityType="Self.ProductImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductMeta" EntityType="Self.ProductMeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductRemark" EntityType="Self.ProductRemark" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelationshipType" EntityType="Self.RelationshipType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleOrder" EntityType="Self.SaleOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleOrderDetail" EntityType="Self.SaleOrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductImage" EntityType="Self.ProductImage" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ProductImage].[ProductImageId] AS [ProductImageId], 
-[ProductImage].[ProductId] AS [ProductId], 
-[ProductImage].[ProductImageUrl] AS [ProductImageUrl], 
-[ProductImage].[ProductImageThumbnail] AS [ProductImageThumbnail]
-FROM [dbo].[ProductImage] AS [ProductImage]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ProductRemark" EntityType="Self.ProductRemark" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ProductRemark].[ProductRemarkId] AS [ProductRemarkId], 
-[ProductRemark].[ProductId] AS [ProductId], 
-[ProductRemark].[ProductRemarkDescription] AS [ProductRemarkDescription], 
-[ProductRemark].[ProductRemarkStart] AS [ProductRemarkStart], 
-[ProductRemark].[ProductRemarkEnd] AS [ProductRemarkEnd]
-FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__Category__Parent__300424B4" Association="Self.FK__Category__Parent__300424B4">
             <End Role="Category" EntitySet="Category" />
             <End Role="Category1" EntitySet="Category" />
@@ -565,8 +545,7 @@ FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
             <End Role="CompanyRelation" EntitySet="CompanyRelation" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -709,9 +688,9 @@ FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
           <Property Name="ProductRetailPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK__Product__Categor__3A81B327" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="Company" Relationship="Self.FK__Product__Company__3B75D760" FromRole="Product" ToRole="Company" />
-          <NavigationProperty Name="ProductImages" Relationship="Self.FK__ProductIm__Produ__3C69FB99" FromRole="Product" ToRole="ProductImage" />
           <NavigationProperty Name="ProductMetas" Relationship="Self.FK__ProductMe__Produ__3D5E1FD2" FromRole="Product" ToRole="ProductMeta" />
-          <NavigationProperty Name="ProductRemarks" Relationship="Self.FK__ProductRe__Produ__3E52440B" FromRole="Product" ToRole="ProductRemark" />
+          <NavigationProperty Name="ProductImages" Relationship="EveModel.FK__ProductIm__Produ__3C69FB99" FromRole="Product" ToRole="ProductImage" />
+          <NavigationProperty Name="ProductRemarks" Relationship="EveModel.FK__ProductRe__Produ__3E52440B" FromRole="Product" ToRole="ProductRemark" />
         </EntityType>
         <EntityType Name="ProductMeta">
           <Key>
@@ -771,31 +750,6 @@ FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
           <Property Name="UserTypeNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserTypeIsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUser_UserType" FromRole="UserType" ToRole="AppUser" />
-        </EntityType>
-        <EntityType Name="ProductImage">
-          <Key>
-            <PropertyRef Name="ProductImageId" />
-            <PropertyRef Name="ProductImageUrl" />
-            <PropertyRef Name="ProductImageThumbnail" />
-          </Key>
-          <Property Name="ProductImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductId" Type="Int32" />
-          <Property Name="ProductImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProductImageThumbnail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__ProductIm__Produ__3C69FB99" FromRole="ProductImage" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="ProductRemark">
-          <Key>
-            <PropertyRef Name="ProductRemarkId" />
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="ProductRemarkDescription" />
-          </Key>
-          <Property Name="ProductRemarkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="ProductRemarkDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProductRemarkStart" Type="DateTime" Precision="3" />
-          <Property Name="ProductRemarkEnd" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__ProductRe__Produ__3E52440B" FromRole="ProductRemark" ToRole="Product" />
         </EntityType>
         <Association Name="FK__CompanyRe__Relat__267ABA7A">
           <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
@@ -989,18 +943,6 @@ FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductIm__Produ__3C69FB99">
-          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="ProductImage" Type="Self.ProductImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="ProductImage">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__ProductMe__Produ__3D5E1FD2">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="ProductMeta" Type="Self.ProductMeta" Multiplicity="*" />
@@ -1009,18 +951,6 @@ FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
               <PropertyRef Name="ProductId" />
             </Principal>
             <Dependent Role="ProductMeta">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ProductRe__Produ__3E52440B">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProductRemark" Type="Self.ProductRemark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="ProductRemark">
               <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1066,8 +996,6 @@ FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
           <EntitySet Name="SaleOrders" EntityType="Self.SaleOrder" />
           <EntitySet Name="SaleOrderDetails" EntityType="Self.SaleOrderDetail" />
           <EntitySet Name="UserTypes" EntityType="Self.UserType" />
-          <EntitySet Name="ProductImages" EntityType="Self.ProductImage" />
-          <EntitySet Name="ProductRemarks" EntityType="Self.ProductRemark" />
           <AssociationSet Name="FK__CompanyRe__Relat__267ABA7A" Association="Self.FK__CompanyRe__Relat__267ABA7A">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="CompanyRelation" EntitySet="CompanyRelations" />
@@ -1132,17 +1060,9 @@ FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
             <End Role="OrderStatus" EntitySet="OrderStatus" />
             <End Role="SaleOrder" EntitySet="SaleOrders" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductIm__Produ__3C69FB99" Association="Self.FK__ProductIm__Produ__3C69FB99">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ProductImage" EntitySet="ProductImages" />
-          </AssociationSet>
           <AssociationSet Name="FK__ProductMe__Produ__3D5E1FD2" Association="Self.FK__ProductMe__Produ__3D5E1FD2">
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductMeta" EntitySet="ProductMetas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ProductRe__Produ__3E52440B" Association="Self.FK__ProductRe__Produ__3E52440B">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ProductRemark" EntitySet="ProductRemarks" />
           </AssociationSet>
           <AssociationSet Name="FK__SaleOrder__Produ__412EB0B6" Association="Self.FK__SaleOrder__Produ__412EB0B6">
             <End Role="ProductMeta" EntitySet="ProductMetas" />
@@ -1152,7 +1072,80 @@ FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
             <End Role="SaleOrder" EntitySet="SaleOrders" />
             <End Role="SaleOrderDetail" EntitySet="SaleOrderDetails" />
           </AssociationSet>
+          <EntitySet Name="ProductImages" EntityType="EveModel.ProductImage" />
+          <EntitySet Name="ProductRemarks" EntityType="EveModel.ProductRemark" />
+          <AssociationSet Name="FK__ProductIm__Produ__3C69FB99" Association="EveModel.FK__ProductIm__Produ__3C69FB99">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductImage" EntitySet="ProductImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductRe__Produ__3E52440B" Association="EveModel.FK__ProductRe__Produ__3E52440B">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductRemark" EntitySet="ProductRemarks" />
+          </AssociationSet>
+          <FunctionImport Name="usp_sel_ProductMetaInfo" ReturnType="Collection(EveModel.usp_sel_ProductMetaInfo_Result)">
+            <Parameter Name="pid" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="ProductImage">
+          <Key>
+            <PropertyRef Name="ProductImageId" />
+          </Key>
+          <Property Name="ProductImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ProductImageUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductImageThumbnail" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="EveModel.FK__ProductIm__Produ__3C69FB99" FromRole="ProductImage" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductRemark">
+          <Key>
+            <PropertyRef Name="ProductRemarkId" />
+          </Key>
+          <Property Name="ProductRemarkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="ProductRemarkDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ProductRemarkStart" Type="DateTime" Precision="3" />
+          <Property Name="ProductRemarkEnd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="EveModel.FK__ProductRe__Produ__3E52440B" FromRole="ProductRemark" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK__ProductIm__Produ__3C69FB99">
+          <End Type="EveModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="EveModel.ProductImage" Role="ProductImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductImage">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductRe__Produ__3E52440B">
+          <End Type="EveModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="EveModel.ProductRemark" Role="ProductRemark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductRemark">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_sel_ProductMetaInfo_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="true" />
+          <Property Type="Int32" Name="ProductMetaId" Nullable="true" />
+          <Property Type="String" Name="ProductNameEn" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ProductNameEs" Nullable="true" MaxLength="300" />
+          <Property Type="Decimal" Name="ProductPrice" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="ProductRetailPrice" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="ProductMetaPrice" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="ProductMetaRetailPrice" Nullable="true" Precision="19" />
+          <Property Type="String" Name="ProductMetaTags" Nullable="true" />
+          <Property Type="String" Name="ProductMetaTagsEn" Nullable="true" />
+          <Property Type="String" Name="ProductMetaTagsEs" Nullable="true" />
+          <Property Type="Int32" Name="ProductMetaInventory" Nullable="true" />
+          <Property Type="Int32" Name="ProductMetaInventoryHold" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1340,24 +1333,43 @@ FROM [dbo].[ProductRemark] AS [ProductRemark]</DefiningQuery>
           <EntitySetMapping Name="ProductImages">
             <EntityTypeMapping TypeName="EveModel.ProductImage">
               <MappingFragment StoreEntitySet="ProductImage">
-                <ScalarProperty Name="ProductImageId" ColumnName="ProductImageId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="ProductImageUrl" ColumnName="ProductImageUrl" />
                 <ScalarProperty Name="ProductImageThumbnail" ColumnName="ProductImageThumbnail" />
+                <ScalarProperty Name="ProductImageUrl" ColumnName="ProductImageUrl" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductImageId" ColumnName="ProductImageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductRemarks">
             <EntityTypeMapping TypeName="EveModel.ProductRemark">
               <MappingFragment StoreEntitySet="ProductRemark">
-                <ScalarProperty Name="ProductRemarkId" ColumnName="ProductRemarkId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="ProductRemarkDescription" ColumnName="ProductRemarkDescription" />
-                <ScalarProperty Name="ProductRemarkStart" ColumnName="ProductRemarkStart" />
                 <ScalarProperty Name="ProductRemarkEnd" ColumnName="ProductRemarkEnd" />
+                <ScalarProperty Name="ProductRemarkStart" ColumnName="ProductRemarkStart" />
+                <ScalarProperty Name="ProductRemarkDescription" ColumnName="ProductRemarkDescription" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductRemarkId" ColumnName="ProductRemarkId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_sel_ProductMetaInfo" FunctionName="EveModel.Store.usp_sel_ProductMetaInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EveModel.usp_sel_ProductMetaInfo_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductMetaId" ColumnName="ProductMetaId" />
+                <ScalarProperty Name="ProductNameEn" ColumnName="ProductNameEn" />
+                <ScalarProperty Name="ProductNameEs" ColumnName="ProductNameEs" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductRetailPrice" ColumnName="ProductRetailPrice" />
+                <ScalarProperty Name="ProductMetaPrice" ColumnName="ProductMetaPrice" />
+                <ScalarProperty Name="ProductMetaRetailPrice" ColumnName="ProductMetaRetailPrice" />
+                <ScalarProperty Name="ProductMetaTags" ColumnName="ProductMetaTags" />
+                <ScalarProperty Name="ProductMetaTagsEn" ColumnName="ProductMetaTagsEn" />
+                <ScalarProperty Name="ProductMetaTagsEs" ColumnName="ProductMetaTagsEs" />
+                <ScalarProperty Name="ProductMetaInventory" ColumnName="ProductMetaInventory" />
+                <ScalarProperty Name="ProductMetaInventoryHold" ColumnName="ProductMetaInventoryHold" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

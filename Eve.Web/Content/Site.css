@@ -2,3 +2,27 @@
     padding: 0px;
     margin: 0px;
 }
+.caret.caret-reversed {
+    border-top-width: 0;
+    border-bottom: 4px solid #000000;
+}
+.color-pick{
+	border: 1px solid rgba(0,0,0,.3);
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	font-size: 1px;
+}
+button img{
+	width: 24px;
+}
+
+.delete-image-list{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	border: 1px solid #000 !IMPORTANT;
+	border-radius: 4px !IMPORTANT;
+	padding: 2px 4px 2px 4px !IMPORTANT;
+	background-color: #FFF !IMPORTANT;
+}

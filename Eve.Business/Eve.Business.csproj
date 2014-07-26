@@ -44,10 +44,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Objects\Category.cs" />
+    <Compile Include="Objects\Company.cs" />
+    <Compile Include="Objects\Meta.cs" />
+    <Compile Include="Objects\Product.cs" />
+    <Compile Include="Objects\ProductInventory.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\MetaService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Util\GridOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eve.Entity\Eve.Entity.csproj">

@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section include{
+    <script type="text/javascript" src="../Scripts/Pages/Category.js"></script>
+    <script type="text/html" id="tmpCategories">
+        <tr>
+            <td>
+                <span class='caret caret-reversed' data-bind='visible: hasChilds' onclick="toggleChilds(this);" style="cursor: pointer;"></span>
+            </td>
+            <td>
+                <span data-bind="text: CategoryNameEs, visible: notUnderEdit"></span>
+                <input type="text" data-bind="value: CategoryNameEs, visible: underEdit" class="form-control" />
+            </td>
+            <td>
+                <span data-bind="text: CategoryNameEn, visible: notUnderEdit"></span>
+                <input type="text" data-bind="value: CategoryNameEn, visible: underEdit" class="form-control" />
+            </td>
+            <td>
+                <input type="checkbox" disabled="disabled" data-bind="checked: CategoryIsActive, visible: notUnderEdit" />
+                <input type="checkbox" data-bind="checked: CategoryIsActive, visible: underEdit" />
+            </td>
+            <td>
+                <button data-bind="click: setSelected, visible: notUnderEdit, enable: $root.notUnderEdit" title="Edit" class="btn btn-success">
+                    <img src="../Content/Images/edit_w.png" />
+                </button>
+                <button onclick="expandChild(this)" data-bind="click: addChild, visible: notUnderEdit, enable: $root.notUnderEdit" title="Add Child" class="btn btn-primary">
+                    <img src="../Content/Images/add_w.png" />
+                </button>
+                <button data-bind="click: saveCategory, visible: underEdit" class="btn btn-primary">
+                    Save
+                </button>
+                <button data-bind="click: unSelect, visible: underEdit" class="btn btn-info">
+                    Cancel
+                </button>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr data-bind="visible: hasChilds">
+            <td>&nbsp;</td>
+            <td colspan="5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Name En</th>
+                            <th>Name Es</th>
+                            <th>Active</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="template: { foreach: Childs, name: 'tmpCategories' }"></tbody>
+                </table>
+            </td>
+        </tr>
+    </script>
+}
+<div class="container">
+    <div class="col-md-8">
+        <button class="btn btn-primary" data-bind="click: newCategory, enable: $root.notUnderEdit">Add New</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name En</th>
+                    <th>Name Es</th>
+                    <th>Active</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody data-bind="template: { foreach: Childs, name: 'tmpCategories' }"></tbody>
+        </table>
+    </div>
+</div>

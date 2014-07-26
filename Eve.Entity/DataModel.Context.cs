@@ -12,6 +12,9 @@ namespace Eve.Entity
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Objects;
+    using System.Data.Objects.DataClasses;
+    using System.Linq;
     
     public partial class EveEntities : DbContext
     {
@@ -43,5 +46,14 @@ namespace Eve.Entity
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductRemark> ProductRemarks { get; set; }
+    
+        public virtual ObjectResult<usp_sel_ProductMetaInfo_Result> usp_sel_ProductMetaInfo(Nullable<int> pid)
+        {
+            var pidParameter = pid.HasValue ?
+                new ObjectParameter("pid", pid) :
+                new ObjectParameter("pid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_sel_ProductMetaInfo_Result>("usp_sel_ProductMetaInfo", pidParameter);
+        }
     }
 }

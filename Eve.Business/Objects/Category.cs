@@ -5,19 +5,19 @@ namespace Eve.Business.Objects
 {
     public class Category
     {
-        public int Id { get; set; }
-        public int? ParentId { get; set; }
-        public string NameEs { get; set; }
-        public string NameEn { get; set; }
-        public bool IsActive { get; set; }
+        public int CategoryId { get; set; }
+        public int? ParentCategoryId { get; set; }
+        public string CategoryNameEs { get; set; }
+        public string CategoryNameEn { get; set; }
+        public bool CategoryIsActive { get; set; }
 
         internal Category(Eve.Entity.Category cat)
         {
-            this.Id = cat.CategoryId;
-            this.ParentId = cat.ParentCategoryId;
-            this.NameEn = cat.CategoryNameEn;
-            this.NameEs = cat.CategoryNameEs;
-            this.IsActive = cat.CategoryIsActive;
+            this.CategoryId = cat.CategoryId;
+            this.ParentCategoryId = cat.ParentCategoryId;
+            this.CategoryNameEn = cat.CategoryNameEn;
+            this.CategoryNameEs = cat.CategoryNameEs;
+            this.CategoryIsActive = cat.CategoryIsActive;
         }
         public Category() { }
 
@@ -25,11 +25,11 @@ namespace Eve.Business.Objects
         {
             return new Entity.Category
             {
-                CategoryId = Id,
-                CategoryIsActive = IsActive,
-                CategoryNameEn = NameEn,
-                CategoryNameEs = NameEs,
-                ParentCategoryId = ParentId
+                CategoryId = CategoryId,
+                CategoryIsActive = CategoryIsActive,
+                CategoryNameEn = CategoryNameEn,
+                CategoryNameEs = CategoryNameEs,
+                ParentCategoryId = ParentCategoryId
             };
         }
     }

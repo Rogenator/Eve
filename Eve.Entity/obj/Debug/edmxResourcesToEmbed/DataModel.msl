@@ -182,23 +182,42 @@
     <EntitySetMapping Name="ProductImages">
       <EntityTypeMapping TypeName="EveModel.ProductImage">
         <MappingFragment StoreEntitySet="ProductImage">
-          <ScalarProperty Name="ProductImageId" ColumnName="ProductImageId" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="ProductImageUrl" ColumnName="ProductImageUrl" />
           <ScalarProperty Name="ProductImageThumbnail" ColumnName="ProductImageThumbnail" />
+          <ScalarProperty Name="ProductImageUrl" ColumnName="ProductImageUrl" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductImageId" ColumnName="ProductImageId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ProductRemarks">
       <EntityTypeMapping TypeName="EveModel.ProductRemark">
         <MappingFragment StoreEntitySet="ProductRemark">
-          <ScalarProperty Name="ProductRemarkId" ColumnName="ProductRemarkId" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="ProductRemarkDescription" ColumnName="ProductRemarkDescription" />
-          <ScalarProperty Name="ProductRemarkStart" ColumnName="ProductRemarkStart" />
           <ScalarProperty Name="ProductRemarkEnd" ColumnName="ProductRemarkEnd" />
+          <ScalarProperty Name="ProductRemarkStart" ColumnName="ProductRemarkStart" />
+          <ScalarProperty Name="ProductRemarkDescription" ColumnName="ProductRemarkDescription" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductRemarkId" ColumnName="ProductRemarkId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_sel_ProductMetaInfo" FunctionName="EveModel.Store.usp_sel_ProductMetaInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EveModel.usp_sel_ProductMetaInfo_Result">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductMetaId" ColumnName="ProductMetaId" />
+          <ScalarProperty Name="ProductNameEn" ColumnName="ProductNameEn" />
+          <ScalarProperty Name="ProductNameEs" ColumnName="ProductNameEs" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="ProductRetailPrice" ColumnName="ProductRetailPrice" />
+          <ScalarProperty Name="ProductMetaPrice" ColumnName="ProductMetaPrice" />
+          <ScalarProperty Name="ProductMetaRetailPrice" ColumnName="ProductMetaRetailPrice" />
+          <ScalarProperty Name="ProductMetaTags" ColumnName="ProductMetaTags" />
+          <ScalarProperty Name="ProductMetaTagsEn" ColumnName="ProductMetaTagsEn" />
+          <ScalarProperty Name="ProductMetaTagsEs" ColumnName="ProductMetaTagsEs" />
+          <ScalarProperty Name="ProductMetaInventory" ColumnName="ProductMetaInventory" />
+          <ScalarProperty Name="ProductMetaInventoryHold" ColumnName="ProductMetaInventoryHold" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

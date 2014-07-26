@@ -26,3 +26,9 @@ C:\Programming\GuiñoGuiño\Eve\Eve.Web\bin\System.Web.WebPages.Razor.xml
 C:\Programming\GuiñoGuiño\Eve\Eve.Web\obj\Debug\Eve.Web.csprojResolveAssemblyReference.cache
 C:\Programming\GuiñoGuiño\Eve\Eve.Web\obj\Debug\Eve.Web.dll
 C:\Programming\GuiñoGuiño\Eve\Eve.Web\obj\Debug\Eve.Web.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Web\bin\Eve.Business.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Web\bin\Eve.Entity.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Web\bin\EntityFramework.dll
+C:\Programming\GuiñoGuiño\Eve\Eve.Web\bin\Eve.Business.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Web\bin\Eve.Entity.pdb
+C:\Programming\GuiñoGuiño\Eve\Eve.Web\bin\EntityFramework.xml
